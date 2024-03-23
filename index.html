@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Tailwind CSS Colors</title>
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+   <style>
+      .color-box {
+         width: 100px;
+         height: 50px;
+         display: inline-block;
+         margin: 5px;
+
+         cursor: pointer;
+         border-radius: .5rem;
+         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container mx-auto">
+      <div class="border border-2 border-dashed" id="colorPalette" class="p-4 bg-white">
+      </div>
+   </div>
+
+   <script>
+      const tailwindColors = {
+         gray: [
+            "gray-50", "gray-100", "gray-200", "gray-300", "gray-400",
+            "gray-500", "gray-600", "gray-700", "gray-800", "gray-900"
+         ],
+         red: [
+            "red-50", "red-100", "red-200", "red-300", "red-400",
+            "red-500", "red-600", "red-700", "red-800", "red-900"
+         ],
+         yellow: [
+            "yellow-50", "yellow-100", "yellow-200", "yellow-300", "yellow-400",
+            "yellow-500", "yellow-600", "yellow-700", "yellow-800", "yellow-900"
+         ],
+         green: [
+            "green-50", "green-100", "green-200", "green-300", "green-400",
+            "green-500", "green-600", "green-700", "green-800", "green-900"
+         ],
+         blue: [
+            "blue-50", "blue-100", "blue-200", "blue-300", "blue-400",
+            "blue-500", "blue-600", "blue-700", "blue-800", "blue-900"
+         ],
+         indigo: [
+            "indigo-50", "indigo-100", "indigo-200", "indigo-300", "indigo-400",
+            "indigo-500", "indigo-600", "indigo-700", "indigo-800", "indigo-900"
+         ],
+         purple: [
+            "purple-50", "purple-100", "purple-200", "purple-300", "purple-400",
+            "purple-500", "purple-600", "purple-700", "purple-800", "purple-900"
+         ],
+         pink: [
+            "pink-50", "pink-100", "pink-200", "pink-300", "pink-400",
+            "pink-500", "pink-600", "pink-700", "pink-800", "pink-900"
+         ]
+      };
+
+      const colorPalette = document.getElementById('colorPalette');
+
+      function copyToClipboard(text) {
+         navigator.clipboard.writeText(text).then(function () {
+            console.log('Copied to clipboard:', text);
+         }, function (err) {
+            console.error('Unable to copy to clipboard', err);
+         });
+      }
+
+      for (const colorGroup in tailwindColors) {
+         const shades = tailwindColors[colorGroup];
+         const groupTitle = document.createElement('h2');
+
+
+         groupTitle.textContent = colorGroup.charAt(0).toUpperCase() + colorGroup.slice(1);
+         colorPalette.appendChild(groupTitle);
+
+         shades.forEach(shade => {
+            const colorBox = document.createElement('div');
+            colorBox.className = `color-box bg-${shade}`;
+            colorBox.setAttribute('data-color', shade.replace('bg-', ''));
+            colorBox.addEventListener('click', function () {
+               const colorCode = this.getAttribute('data-color');
+               copyToClipboard(colorCode);
+            });
+            colorPalette.appendChild(colorBox);
+         });
+      }
+   </script>
+</body>
+
+</html>
